@@ -1,40 +1,24 @@
+@model Group
+
 <div>
-    <header>
-        <h1>Testem</h1>
-        <div>
-            <a href="/">Dashboard</a>
-            <a href="">Groups</a>
-            <a href="">Tests</a>
-            <a href="/users/logout">Logout</a>
-        </div>
-    </header>
     <div class="main-content">
-        <h2>Bernhard</h2>
-        <div class="options">
-            <h3>Members</h3>
+        <div class="d-flex gap-3 align-items-center justify-content-center">
+            <h2>@Model.Name</h2>
+            <p>Code: <strong>@Model.UniqueCode</strong></p>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Tests Completed</th>
-                    <th>Open Tests</th>
-                    <th>Joined On</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Ryan</td>
-                    <td>Tester</td>
-                    <td>2</td>
-                    <td>5</td>
-                    <td>11-14-23</td>
-                    <td>Delete</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="options">
+            <div>
+                <h3>Members</h3>
+                <a href="" class="btn btn-secondary">Add Member</a>
+            </div>
+            @await Html.PartialAsync("_MemberDisplay", Model.AllMembers)
+        </div>
+
+
+
+        <hr>
+
+
         <div class="options">
             <h3>Tests</h3>
             <a href="/tests/new" class="btn btn-success mx-1">New Test</a>

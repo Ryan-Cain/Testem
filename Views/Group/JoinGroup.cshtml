@@ -1,13 +1,7 @@
 @model Group
 <div class="join-group">
     <header>
-        <h1>Testem</h1>
-        <div>
-            <a href="/">Dashboard</a>
-            <a href="">Groups</a>
-            <a href="">Tests</a>
-            <a href="/users/logout">Logout</a>
-        </div>
+        @await Html.PartialAsync("_NavbarLogin")
     </header>
     <div class="main-content">
         <form action="/groups/join" method="post">

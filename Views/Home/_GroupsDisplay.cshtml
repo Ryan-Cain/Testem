@@ -1,0 +1,37 @@
+@model List<Member>;
+
+<div class="d-flex gap-3">
+    @foreach (Member m in Model)
+    {
+        <a href="/groups/@m.Group.GroupId" class="p-3 bg-secondary rounded shadow text-decoration-none">
+            <p class="p-0 m-0">@m.Group.Name</p>
+        </a>
+    }
+</div>
+
+@* <table class="table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Joined On</th>
+<th>Join Code</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+@foreach (Member m in Model)
+{
+<tr>
+<td>@m.Group.Name</td>
+<td>@(m.IsAdmin ? "Admin" : "Member")</td>
+<td>@m.CreatedAt</td>
+<td>@m.Group.UniqueCode</td>
+<td>
+<a class="btn btn-secondary" href="">View</a>
+<a class="btn btn-danger" href="">Delete</a>
+</td>
+</tr>
+}
+</tbody>
+</table> *@

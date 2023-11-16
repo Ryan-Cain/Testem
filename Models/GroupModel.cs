@@ -6,6 +6,7 @@ public class Group
 {
     [Key]
     public int GroupId { get; set; }
+
     [Required(ErrorMessage ="Title is Required")]
     public string Name { get; set; } 
     // [Required(ErrorMessage ="Medium is Required")]
@@ -13,5 +14,5 @@ public class Group
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-
+    public List<Member> AllMembers {get;set;} = new();
 }

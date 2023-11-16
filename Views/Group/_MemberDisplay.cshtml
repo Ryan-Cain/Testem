@@ -1,0 +1,27 @@
+@model List<Member>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Tests Completed</th>
+            <th>Open Tests</th>
+            <th>Joined On</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (Member m in Model)
+       {
+        <tr>
+            <td>@m.User.FirstName @m.User.LastName</td>
+            <td>@(m.IsAdmin ? "Admin" : "Member")</td>
+            <td></td>
+            <td></td>
+            <td>@m.CreatedAt</td>
+            <td></td>
+        </tr>
+       }
+    </tbody>
+</table>
