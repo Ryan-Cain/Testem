@@ -781,19 +781,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\RCain\\.nuget\\packages\\": {}
+    "C:\\Users\\thiba\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\RCain\\Desktop\\Testem\\Testem.csproj",
+      "projectUniqueName": "C:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Testem.csproj",
       "projectName": "Testem",
-      "projectPath": "C:\\Users\\RCain\\Desktop\\Testem\\Testem.csproj",
-      "packagesPath": "C:\\Users\\RCain\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\RCain\\Desktop\\Testem\\obj\\",
+      "projectPath": "C:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Testem.csproj",
+      "packagesPath": "C:\\Users\\thiba\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\RCain\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\thiba\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -847,7 +847,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.415\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
