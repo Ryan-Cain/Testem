@@ -18399,6 +18399,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Views\\Shared\\_navbarLogin.cshtml",
+      "TargetPath": "Views\\Shared\\_navbarLogin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Views\\Test\\NewTest.cshtml",
       "TargetPath": "Views\\Test\\NewTest.cshtml",
       "FileKind": "mvc"

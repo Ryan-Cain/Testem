@@ -17,6 +17,7 @@ public class GroupController : Controller
 {
     private readonly ILogger<GroupController> _logger;
     private MyContext _context;
+    // private int LoggedInUserId = (int)HttpContext.Session.GetInt32("UserId");
     public GroupController(ILogger<GroupController> logger, MyContext context)
     {
         _logger = logger;
