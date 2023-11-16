@@ -18394,6 +18394,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Views\\Shared\\_LayoutLanding.cshtml",
+      "TargetPath": "Views\\Shared\\_LayoutLanding.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\thiba\\OneDrive\\Documents\\Coding\\02LECTURE\\2023\\11Nov\\w4\\Testem\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
