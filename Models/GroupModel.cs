@@ -14,7 +14,4 @@ public class Group
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
 
-    public int UserId {get; set;}
-    public User? User {get; set;}
-    public List<Group> Groups {get; set;} = new List<Group>();
 }
