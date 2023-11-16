@@ -1,0 +1,50 @@
+@model User;
+
+<div>
+    <div class="main-content">
+        <h2>Welcome @Model.FirstName</h2>
+        <div class="options d-flex gap-3">
+            <h3>Groups</h3>
+            @await Html.PartialAsync("_GroupsDisplay", Model.AllMemberships)
+            <span class="border-end border mx-3"></span>
+            <a href="/groups/new" class="p-3 bg-success rounded shadow text-decoration-none">
+                <p class="p-0 m-0">+ Create Group</p>
+            </a>
+            <a href="/groups/joingroup" class="p-3 bg-success rounded shadow text-decoration-none">
+                <p class="p-0 m-0">Join Group</p>
+            </a>
+        </div>
+        <div class="options">
+            <h3>Tests</h3>
+            @* <a href="" class="btn btn-success mx-1">Create Group</a>
+            <a href="" class="btn btn-success mx-1">Join Group</a> *@
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Points</th>
+                    <th>Grade</th>
+                    <th>Group</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Air Seperator</td>
+                    <td>Completed</td>
+                    <td>8/10</td>
+                    <td>Pass</td>
+                    <td>Bernhard</td>
+                </tr>
+                <tr>
+                    <td>Chiller</td>
+                    <td>Active</td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>Bernhard</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

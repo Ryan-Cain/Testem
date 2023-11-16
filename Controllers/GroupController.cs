@@ -17,6 +17,7 @@ public class GroupController : Controller
 {
     private readonly ILogger<GroupController> _logger;
     private MyContext _context;
+    // private int LoggedInUserId = (int)HttpContext.Session.GetInt32("UserId");
     public GroupController(ILogger<GroupController> logger, MyContext context)
     {
         _logger = logger;
@@ -62,6 +63,13 @@ public class GroupController : Controller
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             int groupId = _context.Groups.FirstOrDefault(g => g.UniqueCode == newGroup.UniqueCode).GroupId;
+            Member MemberInDb = _context.Members.FirstOrDefault(m => m.UserId == userId && m.GroupId == groupId);
+
+            if (groupId == null || MemberInDb != null)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+
             // Make a new member for the user to the group and make an admin
             // bool isMember = _context.Members.FirstOrDefault(m => m.GroupId == groupId);
             Member? newMember = new Member();
@@ -70,7 +78,7 @@ public class GroupController : Controller
             newMember.GroupId = groupId;
             _context.Add(newMember);
             _context.SaveChanges();
-            return RedirectToAction("Dashboard", "User");
+            return RedirectToAction("Dashboard", "Home");
         }
         else
         {
@@ -96,7 +104,7 @@ public class GroupController : Controller
             newMember.GroupId = newGroup.GroupId;
             _context.Add(newMember);
             _context.SaveChanges();
-            return RedirectToAction("Dashboard", "User");
+            return RedirectToAction("Dashboard", "Home");
         }
         else
         {
@@ -145,8 +153,8 @@ public class GroupController : Controller
     [HttpGet("/groups/{groupId}")]
     public IActionResult ShowGroup(int groupId)
     {
-        Group? Groups = _context.Groups.FirstOrDefault(g => g.GroupId == groupId);
-        return View(Groups);
+        Group? Group = _context.Groups.Include(g => g.AllMembers).ThenInclude(m => m.User).FirstOrDefault(g => g.GroupId == groupId);
+        return View("ShowGroup", Group);
     }
 
     // //Likes a group

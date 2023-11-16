@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Identity;
 using Testem.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Testem.Controllers;
@@ -12,6 +13,7 @@ public class UserController : Controller
 {
     private readonly ILogger<UserController> _logger;
     private MyContext _context;
+    private User? LoggedInUserId => _context.Users.FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
     public UserController(ILogger<UserController> logger, MyContext context)
     {
         _logger = logger;
@@ -19,13 +21,11 @@ public class UserController : Controller
     }
     public IActionResult Index()
     {
-        return View();
-    }
-
-    public IActionResult Dashboard()
-    {
-        
-        return View();
+        if(LoggedInUserId != null)
+        {
+            return RedirectToAction("Dashboard", "Home");
+        }
+        return View("Index");
     }
 
     [HttpPost("users/create")]
@@ -72,7 +72,7 @@ public class UserController : Controller
         HttpContext.Session.SetInt32("UserId", UserInDb.UserId);
         HttpContext.Session.SetString("Username", UserInDb.FirstName);
 
-        return RedirectToAction("Dashboard");
+        return RedirectToAction("Dashboard", "Home");
     }
 
     [HttpGet("users/logout")]

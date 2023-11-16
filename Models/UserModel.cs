@@ -7,22 +7,27 @@ public class User
 {
     [Key]
     public int UserId { get; set; }
+
     [Required(ErrorMessage ="First Name is Required")]
     [MinLength(2, ErrorMessage = "First name must be at least 2 characters")]
     [DisplayName("First Name")]
     public string FirstName { get; set; }
+    
     [Required(ErrorMessage ="Last Name is Required")]
     [MinLength(2, ErrorMessage = "Last name must be at least 2 characters")]
     [DisplayName("Last Name")]
     public string LastName { get; set; }
+
     [Required(ErrorMessage ="Email is Required")]
     [EmailAddress]
     [UniqueEmail]
     public string Email { get; set; }
+
     [Required(ErrorMessage ="Must enter a password")]
     [DataType(DataType.Password)]
     [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
     public string Password { get; set; }
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
     // This does not need to be moved to the bottom
@@ -34,8 +39,9 @@ public class User
     [DataType(DataType.Password)]
     [DisplayName("Confirm Password")]
     public string PasswordConfirm { get; set; }
-    // public List<Like> Likes {get; set;} = new List<Like>();
-    // public List<Post> Post { get; set; } = new List<Post>();
+
+    // FK
+    public List<Member> AllMemberships {get;set;}
 }
 
 public class UniqueEmailAttribute : ValidationAttribute
