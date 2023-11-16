@@ -71,7 +71,7 @@ public class GroupController : Controller
             newMember.GroupId = groupId;
             _context.Add(newMember);
             _context.SaveChanges();
-            return RedirectToAction("Dashboard", "User");
+            return RedirectToAction("Dashboard", "Home");
         }
         else
         {
@@ -97,7 +97,7 @@ public class GroupController : Controller
             newMember.GroupId = newGroup.GroupId;
             _context.Add(newMember);
             _context.SaveChanges();
-            return RedirectToAction("Dashboard", "User");
+            return RedirectToAction("Dashboard", "Home");
         }
         else
         {
@@ -146,8 +146,8 @@ public class GroupController : Controller
     [HttpGet("/groups/{groupId}")]
     public IActionResult ShowGroup(int groupId)
     {
-        Group? Groups = _context.Groups.FirstOrDefault(g => g.GroupId == groupId);
-        return View(Groups);
+        Group? Group = _context.Groups.FirstOrDefault(g => g.GroupId == groupId);
+        return View("ShowGroup", Group);
     }
 
     // //Likes a group

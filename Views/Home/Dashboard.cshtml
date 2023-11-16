@@ -1,37 +1,22 @@
+@model User;
+
 <div>
     <header>
-        <h1>Testem</h1>
-        <div>
-            <a href="">Dashboard</a>
-            <a href="">Groups</a>
-            <a href="">Tests</a>
-            <a href="/users/logout">Logout</a>
-        </div>
+        @await Html.PartialAsync("_NavbarLogin")
     </header>
     <div class="main-content">
-        <div class="options">
+        <h2>Welcome @Model.FirstName</h2>
+        <div class="options d-flex gap-3">
             <h3>Groups</h3>
-            <a href="/groups/new" class="btn btn-success mx-3">Create Group</a>
-            <a href="/groups/joingroup" class="btn btn-success mx-3">Join Group</a>
+            @await Html.PartialAsync("_GroupsDisplay", Model.AllMemberships)
+            <span class="border-end border mx-3"></span>
+            <a href="/groups/new" class="p-3 bg-success rounded shadow text-decoration-none">
+                <p class="p-0 m-0">+ Create Group</p>
+            </a>
+            <a href="/groups/joingroup" class="p-3 bg-success rounded shadow text-decoration-none">
+                <p class="p-0 m-0">Join Group</p>
+            </a>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Joined On</th>
-                    <th>Join Code</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="/groups/1">Bernhard</a></td>
-                    <td>Admin</td>
-                    <td>11-14-23</td>
-                    <td>Hr7dt2L</td>
-                </tr>
-            </tbody>
-        </table>
         <div class="options">
             <h3>Tests</h3>
             @* <a href="" class="btn btn-success mx-1">Create Group</a>
