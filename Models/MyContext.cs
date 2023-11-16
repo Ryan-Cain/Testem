@@ -15,5 +15,6 @@ public class MyContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Test> Tests { get; set; }
+    public DbSet<Member> Members {get; set;}
     // public DbSet<Like> Likes { get; set; }
 }

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Testem.Controllers;
 
-// [SessionCheck]
+[SessionCheck]
 public class GroupController : Controller
 {
     private readonly ILogger<GroupController> _logger;
@@ -47,21 +47,60 @@ public class GroupController : Controller
         return View();
     }
 
-    // Create Group Route
-    [HttpPost("/groups/create")]
-    public IActionResult CreateGroup(Group newGroup)
+    // Form for making a new group
+    [HttpGet("/groups/joingroup")]
+    public IActionResult JoinGroup()
     {
-        if (ModelState.IsValid)
+        return View();
+    }
+
+    // Join Group Route
+    [HttpPost("/groups/join")]
+    public IActionResult Join(Group newGroup)
+    {
+        if (newGroup.UniqueCode != null)
         {
-            // newGroup.UserId = (int)HttpContext.Session.GetInt32("UserId");
-            newGroup.UniqueCode = RandoString.GenerateRandomString(6);
-            _context.Add(newGroup);
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            int groupId = _context.Groups.FirstOrDefault(g => g.UniqueCode == newGroup.UniqueCode).GroupId;
+            // Make a new member for the user to the group and make an admin
+            // bool isMember = _context.Members.FirstOrDefault(m => m.GroupId == groupId);
+            Member? newMember = new Member();
+            newMember.UserId = HttpContext.Session.GetInt32("UserId");
+            newMember.IsAdmin = false;
+            newMember.GroupId = groupId;
+            _context.Add(newMember);
             _context.SaveChanges();
             return RedirectToAction("Dashboard", "User");
         }
         else
         {
-            return View("AddGroup");
+            return View("NewGroup");
+        }
+    }
+    // Create Group Route
+    [HttpPost("/groups/create")]
+    public IActionResult CreateGroup(Group newGroup)
+    {
+        Console.WriteLine(newGroup.Name);
+        if (newGroup.Name != null)
+        {
+            // Make a new group and give it a unique ID
+            newGroup.UniqueCode = RandoString.GenerateRandomString(6);
+            _context.Add(newGroup);
+            _context.SaveChanges();
+
+            // Make a new member for the user to the group and make an admin
+            Member? newMember = new Member();
+            newMember.UserId = HttpContext.Session.GetInt32("UserId");
+            newMember.IsAdmin = true;
+            newMember.GroupId = newGroup.GroupId;
+            _context.Add(newMember);
+            _context.SaveChanges();
+            return RedirectToAction("Dashboard", "User");
+        }
+        else
+        {
+            return View("NewGroup");
         }
     }
 

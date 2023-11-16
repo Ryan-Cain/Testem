@@ -83,6 +83,7 @@ table tr {
 }
 
 /* New Group */
-.new-group form {
+.new-group form,
+.join-group form {
   width: fit-content;
 }
