@@ -1,0 +1,88 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(52, 67, 88);
+  color: white;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 100vw; */
+}
+a {
+  color: white;
+}
+a:hover {
+  color: wheat;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+form button {
+  margin-top: 30px;
+}
+
+/* Login */
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top: 75px;
+  width: 50%;
+}
+.login form {
+  padding: 15px 25px;
+  border-radius: 15px;
+}
+.login input {
+  margin-bottom: 15px;
+}
+.login button {
+  margin-top: 15px;
+}
+span {
+  color: rgba(255, 13, 0, 0.923);
+}
+
+/* Header */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 50px;
+  border: 1px solid black;
+}
+header div a {
+  padding: 0 15px;
+  color: white;
+}
+
+/* Options */
+.options {
+  margin: 75px 50px 15px 0;
+  display: flex;
+}
+.options h3 {
+  margin-right: 35px;
+}
+
+/* Main Content */
+.main-content {
+  margin: 25px 50px;
+}
+table tr {
+  color: white;
+}
+
+/* New Group */
+.new-group form {
+  width: fit-content;
+}

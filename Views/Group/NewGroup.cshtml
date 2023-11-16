@@ -1,0 +1,21 @@
+@model Group
+<div class="new-group">
+    <header>
+        <h1>Testem</h1>
+        <div>
+            <a href="/">Dashboard</a>
+            <a href="">Groups</a>
+            <a href="">Tests</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </header>
+    <div class="main-content">
+        <form action="/groups/create" method="post">
+            <h2>New Group</h2>
+            <span asp-validation-for="Name"></span>
+            <label asp-for="Name"></label>
+            <input asp-for="Name">
+            <button class="btn btn-primary">Create Group</button>
+        </form>
+    </div>
+</div>
