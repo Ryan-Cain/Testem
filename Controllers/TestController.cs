@@ -36,28 +36,53 @@ public class TestController : Controller
     // }
 
     // Form for making a new test
-    [HttpGet("/tests/new")]
-    public IActionResult NewTest()
+    [HttpGet("/tests/{groupId}/new/")]
+    public IActionResult NewTest(int groupId)
     {
+        ViewBag.groupId = groupId;
         return View();
     }
 
-    // // Create Test Route
-    // [HttpPost("/tests/create")]
-    // public IActionResult CreateTest(Test newTest)
-    // {
-    //     if (ModelState.IsValid)
-    //     {
-    //         newTest.UserId = (int)HttpContext.Session.GetInt32("UserId");
-    //         _context.Add(newTest);
-    //         _context.SaveChanges();
-    //         return RedirectToAction("Tests");
-    //     }
-    //     else
-    //     {
-    //         return View("AddTest");
-    //     }
-    // }
+    // Form for making a new test
+    [HttpGet("/tests/{testId}/edit/")]
+    public IActionResult EditTest(int testId)
+    {
+        Test editTest = _context.Tests.Include(t => t.Questions).FirstOrDefault(t => t.TestId == testId);
+        ViewBag.currentTest = editTest;
+        return View();
+    }
+
+    // Add a question
+    [HttpPost("/tests/{testId}/addquestion")]
+    public IActionResult AddQuestion(int testId, Question newQuestion)
+    {
+        // Test editTest = _context.Tests.FirstOrDefault(t => t.TestId == testId);
+        newQuestion.TestId = testId;
+        _context.Add(newQuestion);
+        _context.SaveChanges();
+        return Redirect($"/tests/{testId}/edit");
+    }
+
+    // Edit Question
+    // [HttpGet("/tests/{testId}/")]
+
+
+    // Create Test Route
+    [HttpPost("/tests/{groupId}/create")]
+    public IActionResult CreateTest(Test newTest, int groupId)
+    {
+        if (newTest.Name != null)
+        {
+            newTest.GroupId = groupId;
+            _context.Add(newTest);
+            _context.SaveChanges();
+            return Redirect($"/tests/{newTest.TestId}/edit");
+        }
+        else
+        {
+            return View("NewTest");
+        }
+    }
 
     // [HttpGet("/tests/{testId}/edit")]
     // public IActionResult EditTest(int testId)

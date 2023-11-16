@@ -7,14 +7,10 @@ public class Test
     [Key]
     public int TestId { get; set; }
     [Required(ErrorMessage ="Title is Required")]
-    public string Name { get; set; } 
-    [Required(ErrorMessage ="Medium is Required")]
-    public string UniqueCode { get; set; }
+    public int GroupId {get; set;}
+    public string Name { get; set; }
+    // public Question Question {get; set;}
+    public List<Question> Questions {get; set;}
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
-
-
-    // public int UserId {get; set;}
-    // public User? User {get; set;}
-    // public List<Like> Likes {get; set;} = new List<Like>();
 }

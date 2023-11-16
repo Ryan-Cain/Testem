@@ -70,6 +70,32 @@ namespace Testem.Migrations
                     b.ToTable("Members");
                 });
 
+            modelBuilder.Entity("Testem.Models.Question", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("QuestionPhrase")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("Questions");
+                });
+
             modelBuilder.Entity("Testem.Models.Test", b =>
                 {
                     b.Property<int>("TestId")
@@ -79,11 +105,10 @@ namespace Testem.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UniqueCode")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -126,6 +151,20 @@ namespace Testem.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Testem.Models.Question", b =>
+                {
+                    b.HasOne("Testem.Models.Test", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Testem.Models.Test", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }
