@@ -21,7 +21,11 @@ public class UserController : Controller
     }
     public IActionResult Index()
     {
-        return View();
+        if(LoggedInUserId != null)
+        {
+            return RedirectToAction("Dashboard", "Home");
+        }
+        return View("Index");
     }
 
     [HttpPost("users/create")]

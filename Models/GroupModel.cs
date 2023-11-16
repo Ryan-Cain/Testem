@@ -14,5 +14,5 @@ public class Group
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-
+    public List<Member> AllMembers {get;set;} = new();
 }

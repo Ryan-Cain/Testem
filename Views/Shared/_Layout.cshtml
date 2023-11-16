@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/JumpStarter.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <header>
+    @await Html.PartialAsync("_NavbarLogin")
+    </header>
     @RenderBody()
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
