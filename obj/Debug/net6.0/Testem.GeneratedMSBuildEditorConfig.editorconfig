@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\RCain\Desktop\Testem
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/RCain/Desktop/Testem/Views/Group/JoinGroup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcSm9pbkdyb3VwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/RCain/Desktop/Testem/Views/Group/NewGroup.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBcTmV3R3JvdXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

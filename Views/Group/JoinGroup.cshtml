@@ -1,0 +1,21 @@
+@model Group
+<div class="join-group">
+    <header>
+        <h1>Testem</h1>
+        <div>
+            <a href="/">Dashboard</a>
+            <a href="">Groups</a>
+            <a href="">Tests</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </header>
+    <div class="main-content">
+        <form action="/groups/join" method="post">
+            <h2>Join Group</h2>
+            <span asp-validation-for="UniqueCode"></span>
+            <label asp-for="UniqueCode"></label>
+            <input asp-for="UniqueCode">
+            <button class="btn btn-primary">Join</button>
+        </form>
+    </div>
+</div>
