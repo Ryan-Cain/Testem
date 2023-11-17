@@ -21,7 +21,17 @@ public class HomeController : Controller
     {
         // Get all groups associated with the logged in user
         User? LoggedInUser = _context.Users.Include(u => u.AllMemberships).ThenInclude(m => m.Group).FirstOrDefault(u => u.UserId == HttpContext.Session.GetInt32("UserId"));
-        return View("Dashboard", LoggedInUser);
+        // List<Group> Groups = _context.Groups.Include(g => g.AllMembers).ThenInclude(m => m.User).Where(g => g.GroupId == groupId).ToList();
+        // List<Test> Tests = _context.Tests.Include(t => t.Questions).Where(t => t.GroupId == groupId).ToList();
+        List<MemberTest> MemberTests = _context.MemberTests.ToList();
+        MyViewModel MyModels = new MyViewModel
+        {
+            // Group = Group,
+            User = LoggedInUser,
+            MemberTests = MemberTests,
+            // Tests = Tests
+        }; 
+        return View("Dashboard", MyModels);
     }
 
     [SessionCheck]

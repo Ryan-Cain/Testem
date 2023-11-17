@@ -15,6 +15,7 @@ public class Member
 
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    public List<MemberTest> MemberTests {get; set;}
 
     // Nav Props
     public Group Group { get; set; }

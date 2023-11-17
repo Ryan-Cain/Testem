@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Testem.Models;
 
@@ -10,9 +11,10 @@ using Testem.Models;
 namespace Testem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20231117071817_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,40 +76,6 @@ namespace Testem.Migrations
                     b.ToTable("Members");
                 });
 
-            modelBuilder.Entity("Testem.Models.MemberTest", b =>
-                {
-                    b.Property<int>("MemberTestId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("CorrectAnswers")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Passed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("MemberTestId");
-
-                    b.HasIndex("MemberId");
-
-                    b.ToTable("MemberTests");
-                });
-
             modelBuilder.Entity("Testem.Models.Question", b =>
                 {
                     b.Property<int>("QuestionId")
@@ -116,9 +84,6 @@ namespace Testem.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("MemberTestId")
-                        .HasColumnType("int");
 
                     b.Property<string>("QuestionPhrase")
                         .IsRequired()
@@ -131,8 +96,6 @@ namespace Testem.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("QuestionId");
-
-                    b.HasIndex("MemberTestId");
 
                     b.HasIndex("TestId");
 
@@ -213,21 +176,8 @@ namespace Testem.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Testem.Models.MemberTest", b =>
-                {
-                    b.HasOne("Testem.Models.Member", null)
-                        .WithMany("MemberTests")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Testem.Models.Question", b =>
                 {
-                    b.HasOne("Testem.Models.MemberTest", null)
-                        .WithMany("Questions")
-                        .HasForeignKey("MemberTestId");
-
                     b.HasOne("Testem.Models.Test", null)
                         .WithMany("Questions")
                         .HasForeignKey("TestId")
@@ -238,16 +188,6 @@ namespace Testem.Migrations
             modelBuilder.Entity("Testem.Models.Group", b =>
                 {
                     b.Navigation("AllMembers");
-                });
-
-            modelBuilder.Entity("Testem.Models.Member", b =>
-                {
-                    b.Navigation("MemberTests");
-                });
-
-            modelBuilder.Entity("Testem.Models.MemberTest", b =>
-                {
-                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Testem.Models.Test", b =>

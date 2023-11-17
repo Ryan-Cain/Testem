@@ -31,7 +31,7 @@ public class UserController : Controller
     [HttpPost("users/create")]
     public IActionResult CreateUser(User newUser)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             PasswordHasher<User> Hasher = new PasswordHasher<User>();
             newUser.Password = Hasher.HashPassword(newUser, newUser.Password);

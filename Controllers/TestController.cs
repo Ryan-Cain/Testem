@@ -47,9 +47,19 @@ public class TestController : Controller
     [HttpGet("/tests/{testId}/edit/")]
     public IActionResult EditTest(int testId)
     {
+        // List<Test> Tests = _context.Tests.Include(t => t.Questions).Where(t => t.GroupId == groupId).ToList();
         Test editTest = _context.Tests.Include(t => t.Questions).FirstOrDefault(t => t.TestId == testId);
-        ViewBag.currentTest = editTest;
-        return View();
+        Group? Group = _context.Groups.Include(g => g.AllMembers).ThenInclude(m => m.User).FirstOrDefault(g => g.GroupId == editTest.GroupId);
+        List<MemberTest> MemberTests = _context.MemberTests.ToList();
+        MyViewModel MyModels = new MyViewModel
+        {
+            Group = Group,
+            MemberTests = MemberTests,
+            // Tests = Tests,
+            Question = new Question(),
+            Test = editTest
+        }; 
+        return View(MyModels);
     }
 
     // Add a question
@@ -63,9 +73,30 @@ public class TestController : Controller
         return Redirect($"/tests/{testId}/edit");
     }
 
+  
     // Edit Question
-    // [HttpGet("/tests/{testId}/")]
-
+    [HttpGet("/tests/{testId}/editquestion/{questionId}")]
+    public IActionResult EditQuestion(int testId, int questionId, Question editQuestion)
+    {
+        Test editTest = _context.Tests.Include(t => t.Questions).FirstOrDefault(t => t.TestId == testId);
+        ViewBag.currentTest = editTest;
+        ViewBag.questionId = questionId;
+        return View();
+    }
+    // Update Question
+    [HttpPost("/tests/{testId}/updatequestion/{questionId}")]
+    public IActionResult UpdateQuestion(int testId, int questionId, Question editQuestion)
+    {
+        Question? OldQuestion = _context.Questions.FirstOrDefault(i => i.QuestionId == questionId);
+        // need validation here to check if able to edit question
+        if (OldQuestion != null && ModelState.IsValid)
+        {
+            OldQuestion.QuestionPhrase = editQuestion.QuestionPhrase;
+            OldQuestion.UpdatedAt = DateTime.Now;
+            _context.SaveChanges();
+        }
+        return Redirect($"/tests/{testId}/edit");   
+    }
 
     // Create Test Route
     [HttpPost("/tests/{groupId}/create")]
@@ -84,6 +115,34 @@ public class TestController : Controller
         }
     }
 
+    [HttpGet("/tests/{testId}/assign/{memberId}")]
+    public IActionResult AssignTest(int testId, int memberId)
+    {
+        // Need validation to check if memeber already assigned test
+        MemberTest newMemberTest = new MemberTest();
+        newMemberTest.MemberId = memberId;
+        newMemberTest.TestId = testId;
+        newMemberTest.Passed = false;
+        newMemberTest.CorrectAnswers = 0;
+        _context.Add(newMemberTest);
+        _context.SaveChanges();
+        return Redirect($"/tests/{testId}/edit");
+    }
+    // Unassign Test (Deletes it)
+    [HttpGet("/tests/{testId}/unassign/{memberId}")]
+    public IActionResult UnassignTest(int testId, int memberId)
+    {
+        // Need validation to check if memeber already assigned test and have right to delete
+
+        MemberTest oldMemberTest = _context.MemberTests.FirstOrDefault(t => t.TestId == testId && t.MemberId == memberId);
+        if (oldMemberTest != null)
+        {
+            _context.Remove(oldMemberTest);
+            _context.SaveChanges();
+        }
+        return Redirect($"/tests/{testId}/edit");
+    }
+
     // [HttpGet("/tests/{testId}/edit")]
     // public IActionResult EditTest(int testId)
     // {
@@ -96,30 +155,7 @@ public class TestController : Controller
     //     return View("EditTest", test);
     // }
 
-    // [HttpPost("tests/{testId}/update")]
-    // public IActionResult UpdateTest(Test newTest, int testId)
-    // {
-    //     Test? OldTest = _context.Tests.FirstOrDefault(i => i.TestId == testId);
-    //     if (OldTest != null && ModelState.IsValid && OldTest.UserId == HttpContext.Session.GetInt32("UserId"))
-    //     {
-    //         OldTest.Title = newTest.Title;
-    //         OldTest.Medium = newTest.Medium;
-    //         OldTest.Image = newTest.Image;
-    //         OldTest.ForSale = newTest.ForSale;
-    //         OldTest.UpdatedAt = DateTime.Now;
-    //         _context.SaveChanges();
-    //         return RedirectToAction("Tests");
-    //     }
-    //     else
-    //     {
-    //         if (OldTest != null && !ModelState.IsValid)
-    //         {
-    //             return View("EditTest", OldTest);
-    //         }
-    //         // It should be the old version so we can keep the ID
-    //         return RedirectToAction("Tests");
-    //     }
-    // }
+    
 
     // Read One Test Route
     [HttpGet("/tests/{testId}")]

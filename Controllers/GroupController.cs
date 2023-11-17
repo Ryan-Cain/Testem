@@ -154,7 +154,15 @@ public class GroupController : Controller
     public IActionResult ShowGroup(int groupId)
     {
         Group? Group = _context.Groups.Include(g => g.AllMembers).ThenInclude(m => m.User).FirstOrDefault(g => g.GroupId == groupId);
-        return View("ShowGroup", Group);
+        List<Test> Tests = _context.Tests.Include(t => t.Questions).Where(t => t.GroupId == groupId).ToList();
+        List<MemberTest> MemberTests = _context.MemberTests.ToList();
+        MyViewModel MyModels = new MyViewModel
+        {
+            Group = Group,
+            MemberTests = MemberTests,
+            Tests = Tests
+        }; 
+        return View("ShowGroup", MyModels);
     }
 
     // //Likes a group

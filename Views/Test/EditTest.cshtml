@@ -1,4 +1,4 @@
-@model Question
+@model MyViewModel
 <div class="new-test">
     <header>
         <h1>Testem</h1>
@@ -9,18 +9,78 @@
             <a href="/users/logout">Logout</a>
         </div>
     </header>
+    <div class="edit-test-page">
+
     <div class="main-content">
-        <h3>@ViewBag.currentTest.Name</h3>
+        <h3>@Model.Test.Name</h3>
         <div>
-            @foreach(Question q in ViewBag.currentTest.Questions)
-            {
-                <p>@q.QuestionPhrase</p>
+            @{
+                int Count = 1;
+                foreach(Question q in Model.Test.Questions)
+                {
+
+                    <div class="d-flex my-3 align-items-center question">
+                        <a href="/tests/@Model.Test.TestId/editquestion/@q.QuestionId">
+                            <button class="btn btn-success">Edit</button>
+                        </a>
+                        <p >@Count. @q.QuestionPhrase</p>
+                    </div>
+                    Count++;
+                }
             }
         </div>
-        <form action="/tests/@ViewBag.currentTest.TestId/addquestion" method="post">
-            <label asp-for="QuestionPhrase"></label>
-            <input asp-for="QuestionPhrase">
-            <button class="btn btn-info">Add Question</button>
-        </form>
+        @{
+            var viewData = new ViewDataDictionary(ViewData)
+            {
+                {"TestId", Model.Test.TestId},
+            };
+            @await Html.PartialAsync("_QuestionForm", Model.Question, viewData);
+        }
+    </div>
+    <div class="assign-tests">
+        <h3>Assign Tests</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Assigned</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Member m in Model.Group.AllMembers)
+                {
+                    <tr>
+                        <td>@m.User.FirstName</td>
+                        @{
+                            MemberTest? assignedTest = Model.MemberTests.FirstOrDefault(mem => mem.MemberId == m.MemberId);
+                            if (assignedTest != null)
+                            {
+                             <td>Assigned</td>   
+                            }
+                            else{
+                             <td>Unassigned</td>   
+                            }
+                        }
+                        <td>
+                        @{
+                            if (assignedTest != null)
+                            {
+                            <a href="/tests/@Model.Test.TestId/unassign/@m.MemberId">
+                                <button class="btn btn-success">Unassign</button>
+                            </a>   
+                            }
+                            else{
+                            <a href="/tests/@Model.Test.TestId/assign/@m.MemberId">
+                                <button class="btn btn-info">Assign</button>
+                            </a>   
+                            }
+                        }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
     </div>
 </div>

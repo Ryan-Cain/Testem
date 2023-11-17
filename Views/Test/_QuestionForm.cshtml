@@ -1,0 +1,10 @@
+@model Question
+@{
+    var TestId = ViewData["TestId"];
+}
+
+<form action="/tests/@TestId/addquestion" method="post">
+            <label asp-for="QuestionPhrase"></label>
+            <input asp-for="QuestionPhrase">
+            <button style="width: fit-content;" class="btn btn-info">Add Question</button>
+</form>

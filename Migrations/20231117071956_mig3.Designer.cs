@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Testem.Models;
 
@@ -10,9 +11,10 @@ using Testem.Models;
 namespace Testem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20231117071956_mig3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,9 +82,6 @@ namespace Testem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Completed")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("CorrectAnswers")
                         .HasColumnType("int");
 
@@ -102,8 +101,6 @@ namespace Testem.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("MemberTestId");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("MemberTests");
                 });
@@ -213,15 +210,6 @@ namespace Testem.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Testem.Models.MemberTest", b =>
-                {
-                    b.HasOne("Testem.Models.Member", null)
-                        .WithMany("MemberTests")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Testem.Models.Question", b =>
                 {
                     b.HasOne("Testem.Models.MemberTest", null)
@@ -238,11 +226,6 @@ namespace Testem.Migrations
             modelBuilder.Entity("Testem.Models.Group", b =>
                 {
                     b.Navigation("AllMembers");
-                });
-
-            modelBuilder.Entity("Testem.Models.Member", b =>
-                {
-                    b.Navigation("MemberTests");
                 });
 
             modelBuilder.Entity("Testem.Models.MemberTest", b =>

@@ -89,3 +89,20 @@ table tr {
   width: fit-content;
 }
 
+/* Edit Test */
+.edit-question > * {
+  height: fit-content;
+  margin: 0 10px;
+
+}
+.edit-question {
+  align-items: center;
+}
+.question p {
+  margin-left: 20px;
+}
+.edit-test-page {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}

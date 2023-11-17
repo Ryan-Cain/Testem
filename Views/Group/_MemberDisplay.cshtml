@@ -1,4 +1,4 @@
-@model List<Member>
+@model MyViewModel
 
 <table class="table">
     <thead>
@@ -12,13 +12,13 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (Member m in Model)
+       @foreach (Member m in Model.Group.AllMembers)
        {
         <tr>
             <td>@m.User.FirstName @m.User.LastName</td>
             <td>@(m.IsAdmin ? "Admin" : "Member")</td>
-            <td></td>
-            <td></td>
+            <td>@Model.MemberTests.Where(t => t.MemberId == m.MemberId && t.Completed == true).Count()</td>
+            <td>@Model.MemberTests.Where(t => t.MemberId == m.MemberId && t.Completed == false).Count()</td>
             <td>@m.CreatedAt</td>
             <td></td>
         </tr>

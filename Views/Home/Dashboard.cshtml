@@ -1,11 +1,11 @@
-@model User;
+@model MyViewModel;
 
 <div>
     <div class="main-content">
-        <h2>Welcome @Model.FirstName</h2>
+        <h2>Welcome @Model.User.FirstName</h2>
         <div class="options d-flex gap-3">
             <h3>Groups</h3>
-            @await Html.PartialAsync("_GroupsDisplay", Model.AllMemberships)
+            @await Html.PartialAsync("_GroupsDisplay", Model.User.AllMemberships)
             <span class="border-end border mx-3"></span>
             <a href="/groups/new" class="p-3 bg-success rounded shadow text-decoration-none">
                 <p class="p-0 m-0">+ Create Group</p>

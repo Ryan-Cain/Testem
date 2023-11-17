@@ -12,15 +12,33 @@
     <div class="main-content">
         <h3>@ViewBag.currentTest.Name</h3>
         <div>
-            @foreach(Question q in ViewBag.currentTest.Questions)
-            {
-                <p>@q.QuestionPhrase</p>
+            @{
+                int Count = 1;
+                foreach(Question q in ViewBag.currentTest.Questions)
+                {
+                    if (q.QuestionId == ViewBag.questionId)
+                    {
+                        <div class="d-flex my-3 align-items-center">
+                            <p class="ml-3">@Count. </p>
+                            <form action="/tests/@ViewBag.currentTest.TestId/updatequestion/@q.QuestionId" method="post">
+                                <div class="d-flex edit-question">
+                                    <input asp-for="QuestionPhrase" value="@q.QuestionPhrase">
+                                    <button class="btn btn-info">Edit</button>
+                                    <a href="/tests/@ViewBag.currentTest.TestId/edit" class="btn btn-success">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                        Count++;
+                    }
+                    else
+                    {
+                        <div class="d-flex my-3 align-items-center">
+                            <p class="ml-3">@Count. @q.QuestionPhrase</p>
+                        </div>
+                        Count++;
+                    }
+                }
             }
         </div>
-        <form action="/tests/@ViewBag.currentTest.TestId/addquestion" method="post">
-            <label asp-for="QuestionPhrase"></label>
-            <input asp-for="QuestionPhrase">
-            <button class="btn btn-info">Add Question</button>
-        </form>
     </div>
 </div>
