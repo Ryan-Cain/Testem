@@ -67,7 +67,37 @@ namespace Testem.Migrations
 
                     b.HasKey("MemberId");
 
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("Testem.Models.Question", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("QuestionPhrase")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Testem.Models.Test", b =>
@@ -79,11 +109,10 @@ namespace Testem.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UniqueCode")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -126,6 +155,47 @@ namespace Testem.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Testem.Models.Member", b =>
+                {
+                    b.HasOne("Testem.Models.Group", "Group")
+                        .WithMany("AllMembers")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Testem.Models.User", "User")
+                        .WithMany("AllMemberships")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Testem.Models.Question", b =>
+                {
+                    b.HasOne("Testem.Models.Test", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Testem.Models.Group", b =>
+                {
+                    b.Navigation("AllMembers");
+                });
+
+            modelBuilder.Entity("Testem.Models.Test", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Testem.Models.User", b =>
+                {
+                    b.Navigation("AllMemberships");
                 });
 #pragma warning restore 612, 618
         }

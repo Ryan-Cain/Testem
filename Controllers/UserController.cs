@@ -39,7 +39,7 @@ public class UserController : Controller
             _context.SaveChanges();
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             HttpContext.Session.SetString("Username", newUser.FirstName);
-            return RedirectToAction("Dashboard");
+            return RedirectToAction("Dashboard", "Home");
         }
         else
         {

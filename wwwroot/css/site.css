@@ -84,6 +84,8 @@ table tr {
 
 /* New Group */
 .new-group form,
-.join-group form {
+.join-group form,
+.new-test form {
   width: fit-content;
 }
+

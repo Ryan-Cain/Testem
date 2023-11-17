@@ -1,0 +1,26 @@
+@model Question
+<div class="new-test">
+    <header>
+        <h1>Testem</h1>
+        <div>
+            <a href="/">Dashboard</a>
+            <a href="">Groups</a>
+            <a href="">Tests</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </header>
+    <div class="main-content">
+        <h3>@ViewBag.currentTest.Name</h3>
+        <div>
+            @foreach(Question q in ViewBag.currentTest.Questions)
+            {
+                <p>@q.QuestionPhrase</p>
+            }
+        </div>
+        <form action="/tests/@ViewBag.currentTest.TestId/addquestion" method="post">
+            <label asp-for="QuestionPhrase"></label>
+            <input asp-for="QuestionPhrase">
+            <button class="btn btn-info">Add Question</button>
+        </form>
+    </div>
+</div>
