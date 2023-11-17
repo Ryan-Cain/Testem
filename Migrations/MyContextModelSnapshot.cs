@@ -67,6 +67,10 @@ namespace Testem.Migrations
 
                     b.HasKey("MemberId");
 
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Members");
                 });
 
@@ -153,6 +157,23 @@ namespace Testem.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Testem.Models.Member", b =>
+                {
+                    b.HasOne("Testem.Models.Group", "Group")
+                        .WithMany("AllMembers")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Testem.Models.User", "User")
+                        .WithMany("AllMemberships")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Testem.Models.Question", b =>
                 {
                     b.HasOne("Testem.Models.Test", null)
@@ -162,9 +183,19 @@ namespace Testem.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Testem.Models.Group", b =>
+                {
+                    b.Navigation("AllMembers");
+                });
+
             modelBuilder.Entity("Testem.Models.Test", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Testem.Models.User", b =>
+                {
+                    b.Navigation("AllMemberships");
                 });
 #pragma warning restore 612, 618
         }

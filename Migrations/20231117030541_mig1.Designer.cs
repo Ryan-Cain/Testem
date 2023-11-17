@@ -11,7 +11,7 @@ using Testem.Models;
 namespace Testem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20231116222553_mig1")]
+    [Migration("20231117030541_mig1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,10 @@ namespace Testem.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("MemberId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Members");
                 });
@@ -155,6 +159,23 @@ namespace Testem.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Testem.Models.Member", b =>
+                {
+                    b.HasOne("Testem.Models.Group", "Group")
+                        .WithMany("AllMembers")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Testem.Models.User", "User")
+                        .WithMany("AllMemberships")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Testem.Models.Question", b =>
                 {
                     b.HasOne("Testem.Models.Test", null)
@@ -164,9 +185,19 @@ namespace Testem.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Testem.Models.Group", b =>
+                {
+                    b.Navigation("AllMembers");
+                });
+
             modelBuilder.Entity("Testem.Models.Test", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Testem.Models.User", b =>
+                {
+                    b.Navigation("AllMemberships");
                 });
 #pragma warning restore 612, 618
         }
